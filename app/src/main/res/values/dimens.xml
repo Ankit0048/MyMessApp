@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="intro_title_margin_top">10sp</dimen>
+    <dimen name="intro_text_titlesize">32sp</dimen>
+    <dimen name="image_into_width">200sp</dimen>
+    <dimen name="image_intro_height">200sp</dimen>
+    <dimen name="image_view_margin">40sp</dimen>
+    <dimen name="intro_text_start_size">25sp</dimen>
+    <dimen name="intro_text_info_size">20sp</dimen>
+    <dimen name="button_width_intro">350dp</dimen>
+    <dimen name="image_view_margin_login">30sp</dimen>
+</resources>

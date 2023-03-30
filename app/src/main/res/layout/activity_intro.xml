@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="20dp"
+    tools:context=".Activity.IntroActivity">
+
+    <TextView
+        android:layout_marginTop="@dimen/intro_title_margin_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="@dimen/intro_text_titlesize"
+        android:textStyle="bold"
+        android:textColor="@color/dark1"
+        android:typeface="sans"
+        android:fontFamily="sans-serif-light"/>
+
+    <ImageView
+        android:layout_width="@dimen/image_into_width"
+        android:layout_height="@dimen/image_intro_height"
+        android:layout_marginTop="@dimen/image_view_margin"
+        android:background="@drawable/mess_image"
+        android:contentDescription="@string/intro_content_description" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_text_color"
+        android:text="@string/starting_string"
+        android:layout_marginTop="@dimen/image_view_margin"
+        android:textSize="@dimen/intro_text_start_size"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_text_color"
+        android:text="@string/intro_info"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/image_view_margin"
+        android:textSize="@dimen/intro_text_info_size"
+        android:textStyle="normal"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/intro_signup_btn"
+        android:layout_width="@dimen/button_width_intro"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/image_view_margin"
+        android:background="@drawable/shape_button_rounded"
+        android:text="@string/intro_signup"
+        android:textColor="@color/white"
+        android:textSize="@dimen/intro_text_info_size"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/intro_login_btn"
+        android:layout_width="@dimen/button_width_intro"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/image_view_margin_login"
+        android:background="@drawable/white_border_shape_button_rounded"
+        android:text="@string/intro_login"
+        android:textSize="@dimen/intro_text_info_size"
+        android:textStyle="bold"
+        tools:ignore="TouchTargetSizeCheck" />
+
+</LinearLayout>
