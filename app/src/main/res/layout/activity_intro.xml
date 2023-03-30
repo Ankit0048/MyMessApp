@@ -47,17 +47,17 @@
         android:textStyle="normal"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/intro_signup_btn"
+        android:id="@+id/intro_admin_btn"
         android:layout_width="@dimen/button_width_intro"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/image_view_margin"
         android:background="@drawable/shape_button_rounded"
-        android:text="@string/intro_signup"
+        android:text="@string/admin_btn"
         android:textColor="@color/white"
         android:textSize="@dimen/intro_text_info_size"
         android:textStyle="bold" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/intro_login_btn"
         android:layout_width="@dimen/button_width_intro"
         android:layout_height="wrap_content"

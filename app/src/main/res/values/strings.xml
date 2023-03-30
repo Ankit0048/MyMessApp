@@ -6,4 +6,5 @@
     <string name="intro_info">App For Students to manage Mess Food and Prices.</string>
     <string name="intro_signup">SIGN UP</string>
     <string name="intro_login">LOG IN</string>
+    <string name="admin_btn">ADMIN</string>
 </resources>

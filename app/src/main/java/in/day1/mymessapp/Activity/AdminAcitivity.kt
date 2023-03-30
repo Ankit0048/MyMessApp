@@ -4,9 +4,17 @@ import `in`.day1.mymessapp.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class LoginActivity : AppCompatActivity() {
+
+class AdminAcitivity : AppCompatActivity() {
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_admin)
+
+
     }
 }
+
+

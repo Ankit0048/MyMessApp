@@ -15,4 +15,6 @@
     <color name ="dark2">#FFFFFF</color>
     <color name ="dark3">#FFFFFF</color>
     <color name ="dark4">#FFFFFF</color>
+
+    <color name ="light_grey">#F5F5F5</color>
 </resources>

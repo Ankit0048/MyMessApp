@@ -13,14 +13,14 @@
         android:theme="@style/Theme.MyMessApp"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.SignUpActivity"
+            android:name=".Activity.AdminAcitivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.LoginActivity"
+            android:name=".Activity.BaseActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

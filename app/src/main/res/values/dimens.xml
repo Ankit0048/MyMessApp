@@ -9,4 +9,7 @@
     <dimen name="intro_text_info_size">20sp</dimen>
     <dimen name="button_width_intro">350dp</dimen>
     <dimen name="image_view_margin_login">30sp</dimen>
+    <dimen name="progress_icon_size">60sp</dimen>
+    <dimen name="margin_cardview_ll">10sp</dimen>
+    <dimen name="margin_text_dialog">5sp</dimen>
 </resources>
