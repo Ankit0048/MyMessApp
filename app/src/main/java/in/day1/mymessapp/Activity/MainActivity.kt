@@ -2,11 +2,14 @@ package `in`.day1.mymessapp.Activity
 
 import `in`.day1.mymessapp.Activity.Firebase.FireStoreClass
 import `in`.day1.mymessapp.Activity.Models.User
+import `in`.day1.mymessapp.Activity.Utils.Constants
 import `in`.day1.mymessapp.R
 import `in`.day1.mymessapp.databinding.ActivityMainBinding
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.TextView
@@ -78,7 +81,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         when(item.itemId) {
             R.id.nav_my_profile -> {
                 val intent = Intent(this@MainActivity, MyProfileActivity::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, Constants.MY_PROFILE_REQUEST_CODE)
             }
             R.id.nav_sign_out -> {
                 FirebaseAuth.getInstance().signOut()
@@ -107,5 +110,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         (binding.navView.getHeaderView(0))
             .findViewById<TextView>(R.id.nav_userName).text = loggedUser.name
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && Constants.MY_PROFILE_REQUEST_CODE == requestCode) {
+            FireStoreClass().loginUser(this)
+        }
+        else {
+            Log.e("Cancelled", "Denied Update")
+        }
     }
 }

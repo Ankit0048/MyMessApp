@@ -14,17 +14,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class MyProfileActivity : BaseActivity() {
 
 
-
-
+    private var mProfileImageUri : String = ""
     private lateinit var binding: ActivityMyProfileBinding
+    private lateinit var mUserDetails: User
 
     private var mSelectedImageFileUri : Uri?= null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +56,17 @@ class MyProfileActivity : BaseActivity() {
                 )
             }
         }
+
+        binding.profileUpdate.setOnClickListener {
+            if(mSelectedImageFileUri!= null) {
+                uploadUserImage()
+            }
+            else {
+                showProgressDialog("Please Wait")
+                updateUserProfileData()
+            }
+
+        }
     }
 
     private fun setupActionBar() {
@@ -73,6 +87,7 @@ class MyProfileActivity : BaseActivity() {
 
     fun setUserData(loggedUser: User) {
 //        Set the image of the user
+        mUserDetails = loggedUser
         if (loggedUser.image != "") {
             Glide
                 .with(this@MyProfileActivity)
@@ -138,4 +153,76 @@ class MyProfileActivity : BaseActivity() {
             }
         }
     }
+
+//    Upload the image on the goolefirebase storage
+    private fun uploadUserImage() {
+        showProgressDialog("Please Wait")
+
+        if (mSelectedImageFileUri != null) {
+
+            val sRef : StorageReference = FirebaseStorage.getInstance().reference.
+            child("USER_IMAGE " + System.currentTimeMillis()
+            +  getFileExtension(mSelectedImageFileUri))
+
+            sRef.putFile(mSelectedImageFileUri!!).addOnSuccessListener {
+                taskSnapshot ->
+                    Log.i("Firebase Image Url", taskSnapshot.metadata!!.reference!!.downloadUrl
+                        .toString())
+
+                taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+                    uri ->
+                    Log.i("Downloadable Uri ", uri.toString())
+                    mProfileImageUri = uri.toString()
+                    hideProgressDialog()
+                    updateUserProfileData()
+                }
+            }.addOnFailureListener{
+                exception ->
+                Log.e("Exception", exception.message!!)
+            }
+
+        }
+    }
+//    Function to get the file extension
+    private fun getFileExtension(uri: Uri?): String? {
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri!!))
+    }
+
+//    Function to updateProfile
+    fun profileUpdateSuccess() {
+        hideProgressDialog()
+        setResult(Activity.RESULT_OK)
+        finish()
+    }
+
+//    FUnction update user Profile data
+    private fun updateUserProfileData() {
+        val userHashMap  = HashMap<String, Any>()
+        var anyChangesMade =false
+        if (mProfileImageUri.isNotEmpty() && mProfileImageUri != mUserDetails.image) {
+            userHashMap[Constants.IMAGE] = mProfileImageUri
+            anyChangesMade = true
+        }
+
+        if (mUserDetails.name != binding.profileUsername.text.toString()) {
+            userHashMap[Constants.NAME] = binding.profileUsername.text.toString()
+            anyChangesMade = true
+        }
+
+        if (mUserDetails.mobile.toString() != binding.profileMobile.text.toString()) {
+            try {
+                anyChangesMade = true
+                userHashMap[Constants.MOBILE] = binding.profileMobile.text.toString().toLong()
+            } catch (e: Exception) {
+                Log.e("Error", "Mobile Number is not Long error")
+                Toast.makeText(this, "Enter Valid NUmber", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+            if (anyChangesMade) {
+
+                FireStoreClass().updateUserProfileData(this, userHashMap)
+            }
+        }
+
 }

@@ -7,6 +7,7 @@ import `in`.day1.mymessapp.Activity.MyProfileActivity
 import `in`.day1.mymessapp.Activity.Utils.Constants
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -45,7 +46,7 @@ class FireStoreClass {
 
 
     }
-
+//Login the user in different activities as per the need
     fun loginUser(activity: Activity) {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserId())
@@ -77,6 +78,18 @@ class FireStoreClass {
             }
     }
 
+//    Function to update the user data so that the
+    fun updateUserProfileData(activity: MyProfileActivity, userHashMap: HashMap<String, Any>) {
+        mFireStore.collection(Constants.USERS).document(getCurrentUserId()).
+        update(userHashMap).addOnSuccessListener {
+            Log.i("UPDATE SUCCESS", "UPDATE SUCCESFULLY THE PROFILE")
+            Toast.makeText(activity, "User Data Updated Successfully", Toast.LENGTH_SHORT).show()
+            activity.profileUpdateSuccess()
+        }.addOnFailureListener {
+            Log.e("Error: ", "Whiile updating something went wrong")
+        }
+
+    }
     //    function to return the user Id
     fun getCurrentUserId(): String {
         val currentUser = FirebaseAuth.getInstance().currentUser
