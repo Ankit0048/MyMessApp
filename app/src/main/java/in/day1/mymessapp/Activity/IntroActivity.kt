@@ -1,5 +1,7 @@
 package `in`.day1.mymessapp.Activity
 
+import `in`.day1.mymessapp.Activity.Firebase.FireStoreClass
+import `in`.day1.mymessapp.Activity.Models.User
 import `in`.day1.mymessapp.Activity.Utils.Constants
 import `in`.day1.mymessapp.databinding.ActivityIntroBinding
 import android.content.Intent
@@ -7,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class IntroActivity : BaseActivity() {
@@ -40,6 +44,7 @@ class IntroActivity : BaseActivity() {
         binding.introLoginBtn.setOnClickListener {
             val signIntent = mGoogleSignInClient.signInIntent
             startActivityForResult(signIntent, Constants.GOOGLE_SIGN_IN_REQUEST_CODE)
+            mGoogleSignInClient.signOut()
         }
         mGoogleSignInClient.signOut()
     }
@@ -61,7 +66,12 @@ class IntroActivity : BaseActivity() {
                                 ).addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         Log.i("User Authenticated: ", "Verified as part of the IIT BBS" +
-                                                "Institutions")
+                                                "Institutions }")
+                                        val fireBaseUser: FirebaseUser = task.result!!.user!!
+                                        val registeredEmail = fireBaseUser.email!!
+                                        val user = User(fireBaseUser.uid, accountG.displayName.toString(), registeredEmail, balance = 18000)
+                                        showProgressDialog("Please Wait")
+                                        FireStoreClass().registerUser(this, user)
 
                                     } else {
                                         Log.e("Logging in Failed", "Email Can't be verified")
@@ -83,6 +93,10 @@ class IntroActivity : BaseActivity() {
     }
 
     fun userRegisteredSuccess() {
-        TODO("Not yet implemented")
+        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+        hideProgressDialog()
+        val intent = Intent(this, MainActivity::class.java)
+        finish()
+        startActivity(intent)
     }
 }

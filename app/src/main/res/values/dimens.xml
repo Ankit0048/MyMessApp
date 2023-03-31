@@ -12,4 +12,20 @@
     <dimen name="progress_icon_size">60sp</dimen>
     <dimen name="margin_cardview_ll">10sp</dimen>
     <dimen name="margin_text_dialog">5sp</dimen>
+    <dimen name="nav_circular_image_size">80sp</dimen>
+    <dimen name="nav_content_margin_start">20sp</dimen>
+    <dimen name="stroke_imagewidht">10sp</dimen>
+    <dimen name="nav_content_margin_top">10sp</dimen>
+    <dimen name="nav_content_margin_bottom">8sp</dimen>
+    <dimen name="signup_toolbar_text_size">20sp</dimen>
+    <dimen name="my_profile_screen_content_marginStartEnd">16dp</dimen>
+    <dimen name="my_profile_screen_content_marginTopBottom">10dp</dimen>
+    <dimen name="cardview_radius">10sp</dimen>
+    <dimen name="my_profile_screen_content_padding">16dp</dimen>
+    <dimen name="my_profile_name_til_marginTop">25dp</dimen>
+    <dimen name="my_profile_user_image_size">100dp</dimen>
+    <dimen name="cardview_padding_signup">10dp</dimen>
+    <dimen name="edittext_layout_margin">10sp</dimen>
+    <dimen name="input_edit_size_signup">15sp</dimen>
+    <dimen name="button_margin_signup">30sp</dimen>
 </resources>

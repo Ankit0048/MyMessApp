@@ -7,4 +7,10 @@
     <string name="intro_signup">SIGN UP</string>
     <string name="intro_login">LOG IN</string>
     <string name="admin_btn">ADMIN</string>
+    <string name="my_profile">My Profile</string>
+    <string name="sign_outmenu">Sign Out</string>
+    <string name="hint_name_edittext">Name</string>
+    <string name="signup_hint_email">Email</string>
+    <string name="mobile">Mobile</string>
+    <string name="update">UPDATE</string>
 </resources>

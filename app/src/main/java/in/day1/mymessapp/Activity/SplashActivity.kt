@@ -1,6 +1,7 @@
 package `in`.day1.mymessapp.Activity
 
 
+import `in`.day1.mymessapp.Activity.Firebase.FireStoreClass
 import `in`.day1.mymessapp.databinding.ActivitySplashBinding
 import android.content.Intent
 import android.graphics.Typeface
@@ -30,9 +31,16 @@ class SplashActivity : AppCompatActivity() {
         binding.tvAppName.typeface = typeface
 
         Timer().schedule(2000) {
-            val intent: Intent = Intent(this@SplashActivity, IntroActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (FireStoreClass().getCurrentUserId() != "") {
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+            }
+            else {
+                val intent: Intent = Intent(this@SplashActivity, IntroActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
         }
 
     }

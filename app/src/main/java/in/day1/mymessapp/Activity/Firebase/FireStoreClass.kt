@@ -1,7 +1,9 @@
 package `in`.day1.mymessapp.Activity.Firebase
 
 import `in`.day1.mymessapp.Activity.IntroActivity
+import `in`.day1.mymessapp.Activity.MainActivity
 import `in`.day1.mymessapp.Activity.Models.User
+import `in`.day1.mymessapp.Activity.MyProfileActivity
 import `in`.day1.mymessapp.Activity.Utils.Constants
 import android.app.Activity
 import android.util.Log
@@ -11,20 +13,67 @@ import com.google.firebase.firestore.SetOptions
 
 class FireStoreClass {
     private var mFireStore = FirebaseFirestore.getInstance()
+    private var docExist: Boolean = false
 
     //    registering an user in the firebase store
     fun registerUser(acitivity: IntroActivity, userInfo : User) {
-        mFireStore.collection(Constants.USERS)
-            .document(getCurrentUserId()).set(userInfo, SetOptions.merge())
+        mFireStore.collection(Constants.USERS).document(getCurrentUserId()).get()
             .addOnSuccessListener {
-                acitivity.userRegisteredSuccess()
-            }.addOnFailureListener {
-                Log.e("Error :" ,"Registering FireStore Database Failed")
+                    document ->
+                val loggedUser = document.toObject(User::class.java)
+                if (loggedUser == null) {
+                    mFireStore.collection(Constants.USERS)
+                        .document(getCurrentUserId()).set(userInfo, SetOptions.merge())
+                        .addOnSuccessListener {
+                            acitivity.userRegisteredSuccess()
+                        }.addOnFailureListener {
+                            acitivity.hideProgressDialog()
+                            Log.e("Error :" ,"Registering FireStore Database Failed")
+                        }
+                }
+                else {
+                    acitivity.userRegisteredSuccess()
+                }
             }
+            .addOnFailureListener {
+                acitivity.hideProgressDialog()
+                docExist = false
+
+            }
+
+
     }
 
-    //    Function to get the databases from the firestore
+    fun loginUser(activity: Activity) {
+        mFireStore.collection(Constants.USERS)
+            .document(getCurrentUserId())
+            .get()
+            .addOnSuccessListener {
+                    document ->
+                val loggedUser = document.toObject(User::class.java)
+                when(activity){
+                    is MainActivity -> {
+                        activity.updateNavigationUserDetails(loggedUser!!)
+                    }
+                    is MyProfileActivity -> {
+                        activity.setUserData(loggedUser!!)
+                    }
+                }
+            }.addOnFailureListener {
+                    e->
+                when(activity){
 
+                    is MainActivity -> {
+                        activity.hideProgressDialog()
+                    }
+
+                    is MyProfileActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+                Log.e("Error Signing in", "Failed Login", e)
+            }
+    }
 
     //    function to return the user Id
     fun getCurrentUserId(): String {
