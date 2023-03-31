@@ -81,4 +81,8 @@ class IntroActivity : BaseActivity() {
         }
 
     }
+
+    fun userRegisteredSuccess() {
+        TODO("Not yet implemented")
+    }
 }
