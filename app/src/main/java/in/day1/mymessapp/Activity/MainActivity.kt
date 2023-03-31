@@ -41,6 +41,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
     private fun setUpActionBar() {
         val toolbar : Toolbar = binding.appBar.toolbarMainActivity
+
         toolbar.setTitle(R.string.app_name)
         toolbar.setNavigationIcon(R.drawable.ic_nav_drawer)
         setSupportActionBar(toolbar)

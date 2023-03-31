@@ -54,11 +54,15 @@ class IntroActivity : BaseActivity() {
             if (requestCode == Constants.GOOGLE_SIGN_IN_REQUEST_CODE) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(data)
                 if (task.isSuccessful ) {
+//                    Using the Google client get the google credentials
                     Log.i("GOOGLE SIGNED IN : ", "SUCCESS")
                     try {
+//                        Trying to login using the google id
                         val accountG = task.getResult(ApiException::class.java)
                         if(accountG.email.toString() != FirebaseAuth.getInstance().currentUser?.email.toString()
-                            && accountG.email.toString().endsWith("@iitbbs.ac.in"))  {
+                            && accountG.email.toString().endsWith("@iitbbs.ac.in"))
+//                        Check the iitbbs.ac.in is present in the email or not
+                        {
                             FirebaseAuth.getInstance()
                                 .signInWithCredential(GoogleAuthProvider.getCredential(accountG.idToken,
                                         null
@@ -71,6 +75,7 @@ class IntroActivity : BaseActivity() {
                                         val registeredEmail = fireBaseUser.email!!
                                         val user = User(fireBaseUser.uid, accountG.displayName.toString(), registeredEmail, balance = 18000)
                                         showProgressDialog("Please Wait")
+//                                        Storing the user to the fire store
                                         FireStoreClass().registerUser(this, user)
 
                                     } else {

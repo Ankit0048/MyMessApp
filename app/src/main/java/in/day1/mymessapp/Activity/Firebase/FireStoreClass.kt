@@ -17,6 +17,7 @@ class FireStoreClass {
 
     //    registering an user in the firebase store
     fun registerUser(acitivity: IntroActivity, userInfo : User) {
+//        Add the user only if it is not present in the firestore till now
         mFireStore.collection(Constants.USERS).document(getCurrentUserId()).get()
             .addOnSuccessListener {
                     document ->
@@ -25,6 +26,7 @@ class FireStoreClass {
                     mFireStore.collection(Constants.USERS)
                         .document(getCurrentUserId()).set(userInfo, SetOptions.merge())
                         .addOnSuccessListener {
+//                            Move to the next activity upon the success
                             acitivity.userRegisteredSuccess()
                         }.addOnFailureListener {
                             acitivity.hideProgressDialog()

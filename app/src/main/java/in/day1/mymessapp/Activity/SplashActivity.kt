@@ -31,6 +31,7 @@ class SplashActivity : AppCompatActivity() {
         binding.tvAppName.typeface = typeface
 
         Timer().schedule(2000) {
+//            If already logged in then we get directly to the main  page
             if (FireStoreClass().getCurrentUserId() != "") {
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
                 startActivity(intent)
