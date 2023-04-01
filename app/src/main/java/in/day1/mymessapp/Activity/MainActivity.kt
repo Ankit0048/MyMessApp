@@ -115,6 +115,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 startActivity(intent)
                 finish()
             }
+            R.id.balance -> {
+                val intent = Intent(this, BalanceActivity::class.java)
+                startActivity(intent)
+            }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true

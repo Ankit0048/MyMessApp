@@ -1,13 +1,10 @@
 package `in`.day1.mymessapp.Activity.Firebase
 
-import `in`.day1.mymessapp.Activity.ConsumeMeal
-import `in`.day1.mymessapp.Activity.IntroActivity
-import `in`.day1.mymessapp.Activity.MainActivity
+import `in`.day1.mymessapp.Activity.*
 import `in`.day1.mymessapp.Activity.Models.Food
 import `in`.day1.mymessapp.Activity.Models.History
 import `in`.day1.mymessapp.Activity.Models.StarSystem
 import `in`.day1.mymessapp.Activity.Models.User
-import `in`.day1.mymessapp.Activity.MyProfileActivity
 import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
 import `in`.day1.mymessapp.Activity.Utils.Constants
 import android.app.Activity
@@ -68,6 +65,9 @@ class FireStoreClass {
                         activity.setUserData(loggedUser!!)
                     }
                     is ConsumeMeal -> {
+                        activity.getBalance(loggedUser!!.balance)
+                    }
+                    is BalanceActivity -> {
                         activity.getBalance(loggedUser!!.balance)
                     }
                 }
