@@ -3,6 +3,7 @@ package `in`.day1.mymessapp.Activity
 import `in`.day1.mymessapp.Activity.Adapters.FoodItemAdapter
 import `in`.day1.mymessapp.Activity.Firebase.FireStoreClass
 import `in`.day1.mymessapp.Activity.Models.Food
+import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
 import `in`.day1.mymessapp.Activity.Utils.Constants
 import `in`.day1.mymessapp.R
 import `in`.day1.mymessapp.databinding.ActivityConsumeMealBinding
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 class ConsumeMeal : BaseActivity(){
 
     private lateinit var binding: ActivityConsumeMealBinding
-
+    private lateinit var MealType: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,11 +30,15 @@ class ConsumeMeal : BaseActivity(){
 
         setUpActionBar()
 
-        val MealType: String = intent.getStringExtra(Constants.PASS_DAY).toString()
+        MealType = intent.getStringExtra(Constants.PASS_DAY).toString()
         showProgressDialog("Loading Items ")
 
         FireStoreClass().getFoodItems(this, MealType)
+        setupVisibility()
 
+        binding.ConsumeBtn.setOnClickListener {
+
+        }
 
     }
 
@@ -53,6 +58,7 @@ class ConsumeMeal : BaseActivity(){
                                          ) {
         val price = food.price
         val taskList: ArrayList<String> = ArrayList<String>(food.FoodItems.split(","))
+        binding.priceMeal.text = "Rs $price"
         hideProgressDialog()
         if(taskList.isNotEmpty()) {
             val itemAdapter = FoodItemAdapter(taskList)
@@ -66,6 +72,15 @@ class ConsumeMeal : BaseActivity(){
 
         }
     }
+    fun setupVisibility() {
+        println("***************************************")
+        println("$MealType **********************************^%^%^%^%^^%^")
+        if (TimeCurrent().currentHour() >= Constants.validTiming[MealType]!![0] &&
+            TimeCurrent().currentHour() <= Constants.validTiming[MealType]!![1] ) {
+            binding.ConsumeBtn.visibility = View.VISIBLE
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

@@ -44,6 +44,7 @@ class IntroActivity : BaseActivity() {
         binding.introLoginBtn.setOnClickListener {
             val signIntent = mGoogleSignInClient.signInIntent
             startActivityForResult(signIntent, Constants.GOOGLE_SIGN_IN_REQUEST_CODE)
+            print("SARIM PHONE ****************")
             mGoogleSignInClient.signOut()
         }
         mGoogleSignInClient.signOut()

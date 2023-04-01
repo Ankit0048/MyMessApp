@@ -44,8 +44,8 @@ class MyProfileActivity : BaseActivity() {
 
 //        on click listener
         binding.profileUserImage.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
                 showImageChoose()
             }
             else {
@@ -220,8 +220,11 @@ class MyProfileActivity : BaseActivity() {
         }
 
             if (anyChangesMade) {
-
                 FireStoreClass().updateUserProfileData(this, userHashMap)
+            }
+            else {
+                hideProgressDialog()
+                Toast.makeText(this, "No changes Made", Toast.LENGTH_SHORT).show()
             }
         }
 

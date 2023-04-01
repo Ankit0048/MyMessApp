@@ -12,7 +12,7 @@ class TimeCurrent {
 
 //Get the current date in format of string
     fun currentYYYYMMDD(): String {
-        return "$year/$month/$date"
+        return "${year}_${month}_${date}"
     }
 
 //    Get the current day of the week

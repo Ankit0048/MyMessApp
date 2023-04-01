@@ -4,6 +4,7 @@ import `in`.day1.mymessapp.Activity.ConsumeMeal
 import `in`.day1.mymessapp.Activity.IntroActivity
 import `in`.day1.mymessapp.Activity.MainActivity
 import `in`.day1.mymessapp.Activity.Models.Food
+import `in`.day1.mymessapp.Activity.Models.History
 import `in`.day1.mymessapp.Activity.Models.User
 import `in`.day1.mymessapp.Activity.MyProfileActivity
 import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
@@ -90,6 +91,7 @@ class FireStoreClass {
             activity.profileUpdateSuccess()
         }.addOnFailureListener {
             Log.e("Error: ", "Whiile updating something went wrong")
+
         }
 
     }
@@ -111,6 +113,7 @@ class FireStoreClass {
 
                         is ConsumeMeal -> {
                             activity.setUpDataToRecylclerView(Food!!)
+
                         }
                     }
                 }.addOnFailureListener { e->
@@ -122,6 +125,36 @@ class FireStoreClass {
                     }
                     Log.e("Error Signing in", "Failed Login", e)
                 }
+        }
+    }
+//    Create a document of such with the given info
+    fun intiateHistoryToday(activity: MainActivity, history: History) {
+    mFireStore.collection(Constants.USERS).document(getCurrentUserId())
+        .collection(Constants.HISTORY).
+        document(TimeCurrent().currentYYYYMMDD()).get()
+        .addOnSuccessListener {
+                document ->
+            val data = document.toObject(History::class.java)
+            if (data == null) {
+                mFireStore.collection(Constants.USERS)
+                    .document(getCurrentUserId())
+                    .collection(Constants.HISTORY)
+                    .document(TimeCurrent().currentYYYYMMDD())
+                    .set(history, SetOptions.merge())
+                    .addOnSuccessListener {
+//                            Move to the next activity upon the success
+                        Log.i("HISTORY INFO", "Created a data set on this date")
+                    }.addOnFailureListener {
+                        Log.e("Error :" ,"Current not Added")
+                    }
+            }
+            else {
+                Log.i("PRSENT ALREADY", "INFO IS PRESENT ALREADY")
+            }
+        }
+        .addOnFailureListener {
+            Log.e("Error : ", "Reaching the user Data")
+
         }
     }
 

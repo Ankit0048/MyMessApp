@@ -1,6 +1,7 @@
 package `in`.day1.mymessapp.Activity
 
 import `in`.day1.mymessapp.Activity.Firebase.FireStoreClass
+import `in`.day1.mymessapp.Activity.Models.History
 import `in`.day1.mymessapp.Activity.Models.User
 import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
 import `in`.day1.mymessapp.Activity.Utils.Constants
@@ -44,6 +45,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         FireStoreClass().loginUser(this@MainActivity)
         binding.navView.setNavigationItemSelectedListener(this)
 
+//        Firestore collection Creation for storage of History
+        FireStoreClass().intiateHistoryToday(this@MainActivity, History())
 //        Attaching the on click listeners to the button
         binding.appBar.mainContentView.breakfastButton.setOnClickListener(this)
         binding.appBar.mainContentView.SnackButton.setOnClickListener(this)
