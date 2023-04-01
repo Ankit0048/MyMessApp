@@ -8,7 +8,17 @@ object Constants {
     const val PICK_IMAGE_REQUEST_CODE = 2
     const val MY_PROFILE_REQUEST_CODE = 11
 
+    const val BREAKFAST = "BREAKFAST"
+    const val LUNCH = "LUNCH"
+    const val DINNER = "DINNER"
+    const val SNACKS = "SNACKS"
+
     const val IMAGE = "image"
     const val NAME = "name"
     const val MOBILE = "mobile"
+
+    const val PASS_DAY = "WEEKDAY"
+    val DAY = hashMapOf<Int, String>(1 to "SUNDAY", 2 to "MONDAY", 3 to "TUESDAY", 4 to "WEDNESDAY",
+    5 to "THURSDAY", 6 to "FRIDAY", 7 to "SATURDAY")
+
 }

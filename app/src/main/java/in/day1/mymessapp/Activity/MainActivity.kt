@@ -2,6 +2,7 @@ package `in`.day1.mymessapp.Activity
 
 import `in`.day1.mymessapp.Activity.Firebase.FireStoreClass
 import `in`.day1.mymessapp.Activity.Models.User
+import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
 import `in`.day1.mymessapp.Activity.Utils.Constants
 import `in`.day1.mymessapp.R
 import `in`.day1.mymessapp.databinding.ActivityMainBinding
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.view.View.OnClickListener
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -19,7 +22,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, OnClickListener {
 
 
     private lateinit var binding: ActivityMainBinding
@@ -40,6 +43,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 //        Using the Firestore class to set the info
         FireStoreClass().loginUser(this@MainActivity)
         binding.navView.setNavigationItemSelectedListener(this)
+
+//        Attaching the on click listeners to the button
+        binding.appBar.mainContentView.breakfastButton.setOnClickListener(this)
+        binding.appBar.mainContentView.SnackButton.setOnClickListener(this)
+        binding.appBar.mainContentView.LunchButton.setOnClickListener(this)
+        binding.appBar.mainContentView.DinnerButton.setOnClickListener(this)
+        binding.appBar.mainContentView.PaidButton.setOnClickListener(this)
 
     }
     private fun setUpActionBar() {
@@ -119,6 +129,37 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
         else {
             Log.e("Cancelled", "Denied Update")
+        }
+    }
+
+    override fun onClick(v: View?) {
+        if (v != null) {
+            when(v.id) {
+                R.id.breakfastButton -> {
+                    val intent = Intent(this, ConsumeMeal::class.java)
+                    intent.putExtra(Constants.PASS_DAY, Constants.BREAKFAST)
+                    startActivity(intent)
+                }
+                R.id.SnackButton -> {
+                    val intent = Intent(this, ConsumeMeal::class.java)
+                    intent.putExtra(Constants.PASS_DAY, Constants.SNACKS)
+                    startActivity(intent)
+                }
+                R.id.LunchButton -> {
+                    val intent = Intent(this, ConsumeMeal::class.java)
+                    intent.putExtra(Constants.PASS_DAY, Constants.LUNCH)
+                    startActivity(intent)
+                }
+                R.id.DinnerButton -> {
+                    val intent = Intent(this, ConsumeMeal::class.java)
+                    intent.putExtra(Constants.PASS_DAY, Constants.DINNER)
+                    startActivity(intent)
+                }
+                R.id.PaidButton -> {
+                    TODO()
+                }
+
+            }
         }
     }
 }

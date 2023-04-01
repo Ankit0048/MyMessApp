@@ -73,6 +73,7 @@
                         android:layout_height="wrap_content"
                         android:textColorHint="@color/secondary_text_color"
                         android:hint="@string/hint_name_edittext"
+                        android:focusableInTouchMode="false"
                         android:textSize="@dimen/input_edit_size_signup"
                         android:inputType="text"
                         />

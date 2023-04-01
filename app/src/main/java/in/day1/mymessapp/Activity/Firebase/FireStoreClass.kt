@@ -1,9 +1,12 @@
 package `in`.day1.mymessapp.Activity.Firebase
 
+import `in`.day1.mymessapp.Activity.ConsumeMeal
 import `in`.day1.mymessapp.Activity.IntroActivity
 import `in`.day1.mymessapp.Activity.MainActivity
+import `in`.day1.mymessapp.Activity.Models.Food
 import `in`.day1.mymessapp.Activity.Models.User
 import `in`.day1.mymessapp.Activity.MyProfileActivity
+import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
 import `in`.day1.mymessapp.Activity.Utils.Constants
 import android.app.Activity
 import android.util.Log
@@ -95,4 +98,31 @@ class FireStoreClass {
         val currentUser = FirebaseAuth.getInstance().currentUser
         return currentUser?.uid ?: ""
     }
+
+//    Get food items from firestore
+    fun getFoodItems(activity: Activity, mealType: String) {
+        Constants.DAY[TimeCurrent().getDayOfWeek()]?.let {
+            mFireStore.collection(it)
+                .document(mealType)
+                .get()
+                .addOnSuccessListener { document ->
+                    val Food = document.toObject(Food::class.java)
+                    when(activity){
+
+                        is ConsumeMeal -> {
+                            activity.setUpDataToRecylclerView(Food!!)
+                        }
+                    }
+                }.addOnFailureListener { e->
+                    when(activity){
+
+                        is ConsumeMeal -> {
+                            activity.hideProgressDialog()
+                        }
+                    }
+                    Log.e("Error Signing in", "Failed Login", e)
+                }
+        }
+    }
+
 }
