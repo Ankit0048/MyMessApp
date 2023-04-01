@@ -158,4 +158,43 @@ class FireStoreClass {
         }
     }
 
+    fun getStatusToday(activity: Activity) {
+        mFireStore.collection(Constants.USERS).document(getCurrentUserId())
+            .collection(Constants.HISTORY).
+            document(TimeCurrent().currentYYYYMMDD()).get()
+            .addOnSuccessListener { document ->
+                val data = document.toObject(History::class.java)
+                when(activity) {
+                    is ConsumeMeal -> {
+                        activity.currentStatus(data)
+                    }
+                }
+            }.addOnFailureListener {
+                when(activity) {
+                    is ConsumeMeal -> {
+                        activity.hideProgressDialog()
+                        Log.e("Error :", "Unable to get Data")
+                    }
+                }
+            }
+    }
+
+//    Updating the todays data
+    fun updateDataToday(activity: ConsumeMeal, dataHashMap: HashMap<String, Any>) {
+        mFireStore.collection(Constants.USERS).document(getCurrentUserId())
+            .collection(Constants.HISTORY).document(TimeCurrent().currentYYYYMMDD())
+            .update(dataHashMap).addOnSuccessListener {
+            Log.i("UPDATE SUCCESS", "UPDATE SUCCESFULLY THE PROFILE")
+            Toast.makeText(activity, "User Data Updated Successfully", Toast.LENGTH_SHORT).show()
+            activity.setupVisibility()
+        }.addOnFailureListener {
+            Log.e("Error: ", "Whiile updating something went wrong")
+
+        }
+    }
+
+//    fun getBalance(): Int {
+//        mFireStore.collection(Constants.USERS).document(getCurrentUserId()).get("balance")
+//    }
+
 }

@@ -25,4 +25,5 @@ object Constants {
 
     val validTiming = hashMapOf(BREAKFAST to arrayOf(7, 9), LUNCH to arrayOf(12, 13)
         , SNACKS to arrayOf(17, 18), DINNER to arrayOf(20, 21))
+
 }

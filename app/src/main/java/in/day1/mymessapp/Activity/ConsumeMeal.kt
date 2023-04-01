@@ -3,14 +3,17 @@ package `in`.day1.mymessapp.Activity
 import `in`.day1.mymessapp.Activity.Adapters.FoodItemAdapter
 import `in`.day1.mymessapp.Activity.Firebase.FireStoreClass
 import `in`.day1.mymessapp.Activity.Models.Food
+import `in`.day1.mymessapp.Activity.Models.History
 import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
 import `in`.day1.mymessapp.Activity.Utils.Constants
 import `in`.day1.mymessapp.R
 import `in`.day1.mymessapp.databinding.ActivityConsumeMealBinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -18,6 +21,9 @@ class ConsumeMeal : BaseActivity(){
 
     private lateinit var binding: ActivityConsumeMealBinding
     private lateinit var MealType: String
+    private lateinit var mPresentState: History
+    var reviewed: Int = 0
+    var consumed: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,11 +39,20 @@ class ConsumeMeal : BaseActivity(){
         MealType = intent.getStringExtra(Constants.PASS_DAY).toString()
         showProgressDialog("Loading Items ")
 
+//        Using Firestore to get the data
         FireStoreClass().getFoodItems(this, MealType)
-        setupVisibility()
+        FireStoreClass().getStatusToday(this)
 
         binding.ConsumeBtn.setOnClickListener {
 
+        }
+
+        binding.reviewSubmit.setOnClickListener {
+            if (binding.reviewText.text.toString() != "") {
+
+            }else {
+                showErrorSnackBar("Enter A Review ")
+            }
         }
 
     }
@@ -73,11 +88,16 @@ class ConsumeMeal : BaseActivity(){
         }
     }
     fun setupVisibility() {
-        println("***************************************")
-        println("$MealType **********************************^%^%^%^%^^%^")
+
         if (TimeCurrent().currentHour() >= Constants.validTiming[MealType]!![0] &&
-            TimeCurrent().currentHour() <= Constants.validTiming[MealType]!![1] ) {
+            TimeCurrent().currentHour() <= Constants.validTiming[MealType]!![1] && consumed==0) {
             binding.ConsumeBtn.visibility = View.VISIBLE
+        }
+        if (consumed==1) {
+            binding.ResultLayout.visibility = View.VISIBLE
+        }
+        if (consumed ==1 && reviewed == 0) {
+            binding.ReviewLayout.visibility = View.VISIBLE
         }
     }
 
@@ -86,4 +106,31 @@ class ConsumeMeal : BaseActivity(){
         super.onDestroy()
 
     }
+
+//    Getting the current User Status
+    fun currentStatus(data: History?) {
+        hideProgressDialog()
+        Log.i("Data Extracted", "Found Today's data")
+        mPresentState = data ?: History()
+        when(MealType) {
+            Constants.BREAKFAST -> {
+                reviewed = mPresentState.reviewedBREAKFAST
+                consumed = mPresentState.tookBREAKFAST
+            }
+            Constants.LUNCH -> {
+                reviewed = mPresentState.reviewedLUNCH
+                consumed = mPresentState.tookLUNCH
+            }
+            Constants.SNACKS -> {
+                reviewed = mPresentState.reviewedSNACKS
+                consumed = mPresentState.tookSNACKS
+            }
+            Constants.DINNER -> {
+                reviewed = mPresentState.reviewedDINNER
+                consumed = mPresentState.tookDINNER
+            }
+        }
+        setupVisibility()
+    }
+
 }
