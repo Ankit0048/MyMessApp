@@ -5,6 +5,7 @@ import `in`.day1.mymessapp.Activity.IntroActivity
 import `in`.day1.mymessapp.Activity.MainActivity
 import `in`.day1.mymessapp.Activity.Models.Food
 import `in`.day1.mymessapp.Activity.Models.History
+import `in`.day1.mymessapp.Activity.Models.StarSystem
 import `in`.day1.mymessapp.Activity.Models.User
 import `in`.day1.mymessapp.Activity.MyProfileActivity
 import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
@@ -15,6 +16,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import java.util.Timer
 
 class FireStoreClass {
     private var mFireStore = FirebaseFirestore.getInstance()
@@ -65,11 +67,13 @@ class FireStoreClass {
                     is MyProfileActivity -> {
                         activity.setUserData(loggedUser!!)
                     }
+                    is ConsumeMeal -> {
+                        activity.getBalance(loggedUser!!.balance)
+                    }
                 }
             }.addOnFailureListener {
                     e->
                 when(activity){
-
                     is MainActivity -> {
                         activity.hideProgressDialog()
                     }
@@ -77,18 +81,29 @@ class FireStoreClass {
                     is MyProfileActivity -> {
                         activity.hideProgressDialog()
                     }
+                    is ConsumeMeal -> {
+                        TODO()
+                    }
                 }
                 Log.e("Error Signing in", "Failed Login", e)
             }
     }
 
 //    Function to update the user data so that the
-    fun updateUserProfileData(activity: MyProfileActivity, userHashMap: HashMap<String, Any>) {
+    fun updateUserProfileData(activity: Activity, userHashMap: HashMap<String, Any>) {
         mFireStore.collection(Constants.USERS).document(getCurrentUserId()).
         update(userHashMap).addOnSuccessListener {
             Log.i("UPDATE SUCCESS", "UPDATE SUCCESFULLY THE PROFILE")
             Toast.makeText(activity, "User Data Updated Successfully", Toast.LENGTH_SHORT).show()
-            activity.profileUpdateSuccess()
+            when(activity) {
+                is MyProfileActivity -> {
+                    activity.profileUpdateSuccess()
+                }
+                is ConsumeMeal -> {
+                    activity.profileUpdateSuccess()
+                }
+            }
+
         }.addOnFailureListener {
             Log.e("Error: ", "Whiile updating something went wrong")
 
@@ -156,6 +171,8 @@ class FireStoreClass {
             Log.e("Error : ", "Reaching the user Data")
 
         }
+
+
     }
 
     fun getStatusToday(activity: Activity) {
@@ -179,22 +196,63 @@ class FireStoreClass {
             }
     }
 
-//    Updating the todays data
-    fun updateDataToday(activity: ConsumeMeal, dataHashMap: HashMap<String, Any>) {
+    fun updateHistory(activity: Activity, dataHashMap: HashMap<String, Any>) {
         mFireStore.collection(Constants.USERS).document(getCurrentUserId())
-            .collection(Constants.HISTORY).document(TimeCurrent().currentYYYYMMDD())
-            .update(dataHashMap).addOnSuccessListener {
-            Log.i("UPDATE SUCCESS", "UPDATE SUCCESFULLY THE PROFILE")
-            Toast.makeText(activity, "User Data Updated Successfully", Toast.LENGTH_SHORT).show()
-            activity.setupVisibility()
-        }.addOnFailureListener {
-            Log.e("Error: ", "Whiile updating something went wrong")
-
-        }
+            .collection(Constants.HISTORY).
+            document(TimeCurrent().currentYYYYMMDD()).update(dataHashMap)
+            .addOnSuccessListener {
+                when(activity){
+                    is ConsumeMeal -> {
+                        activity.setupVisibility()
+                    }
+                }
+            }
     }
 
-//    fun getBalance(): Int {
-//        mFireStore.collection(Constants.USERS).document(getCurrentUserId()).get("balance")
-//    }
+    fun initateReview(activity: MainActivity, star: StarSystem, mealtype: String) {
+        val tt =TimeCurrent().currentYYYYMMDD()
+        mFireStore.collection(mealtype).document(tt)
+            .get().addOnSuccessListener {
+                document ->
+                val data = document.toObject(StarSystem::class.java)
+                if (data == null) {
+                    mFireStore.collection(mealtype)
+                        .document(tt)
+                        .set(star, SetOptions.merge())
+                        .addOnSuccessListener {
+//                            Move to the next activity upon the success
+                            Log.i("HISTORY INFO", "Created a data set on this date")
+                        }.addOnFailureListener {
+                            Log.e("Error :" ,"Current not Added")
+                        }
+                }
+                else {
+                    Log.i("PRSENT ALREADY", "INFO IS PRESENT ALREADY")
+                }
+            }
+            .addOnFailureListener {
+                Log.e("Error : ", "Reaching the user Data")
+
+            }
+    }
+
+    fun reviewChange(mealType: String, rating: Int) {
+        val tt = TimeCurrent().currentYYYYMMDD()
+        mFireStore.collection(mealType+Constants.REVIEW).document(tt)
+            .get().addOnSuccessListener {
+                    document ->
+
+                var x = document.get("one")
+                mFireStore.collection(mealType+Constants.REVIEW).document(tt)
+                    .update(Constants.starIndex[rating]!!, x.toString().toInt() +1
+                        ).addOnSuccessListener {
+                            Log.i("Updated", "Count incremented for the Rating")
+                    }
+
+                }.addOnFailureListener {
+                    Log.e("Error :", "Error Updating Rating Count")
+            }
+        }
+
 
 }

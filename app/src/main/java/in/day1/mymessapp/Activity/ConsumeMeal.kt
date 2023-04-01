@@ -8,6 +8,7 @@ import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
 import `in`.day1.mymessapp.Activity.Utils.Constants
 import `in`.day1.mymessapp.R
 import `in`.day1.mymessapp.databinding.ActivityConsumeMealBinding
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,8 +23,10 @@ class ConsumeMeal : BaseActivity(){
     private lateinit var binding: ActivityConsumeMealBinding
     private lateinit var MealType: String
     private lateinit var mPresentState: History
-    var reviewed: Int = 0
-    var consumed: Int = 0
+    private var reviewed: Int = 0
+    private var consumed: Int = 0
+    private var currentBalance: Int = 0
+    private var FoodPrice: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,14 +47,20 @@ class ConsumeMeal : BaseActivity(){
         FireStoreClass().getStatusToday(this)
 
         binding.ConsumeBtn.setOnClickListener {
+            consumed = 1
+            FireStoreClass().loginUser(this)
 
         }
 
         binding.reviewSubmit.setOnClickListener {
-            if (binding.reviewText.text.toString() != "") {
+            if (binding.ratingbar.rating.toInt() != 0) {
+                reviewed = binding.ratingbar.rating.toInt()
+                val reviewMap = getChangesHistory()
+                FireStoreClass().updateHistory(this, reviewMap)
+                FireStoreClass().reviewChange(MealType, reviewed)
 
             }else {
-                showErrorSnackBar("Enter A Review ")
+                showErrorSnackBar("Enter A Review Rating")
             }
         }
 
@@ -71,9 +80,9 @@ class ConsumeMeal : BaseActivity(){
 
     fun setUpDataToRecylclerView(food: Food
                                          ) {
-        val price = food.price
-        val taskList: ArrayList<String> = ArrayList<String>(food.FoodItems.split(","))
-        binding.priceMeal.text = "Rs $price"
+        FoodPrice = food.price
+        val taskList = ArrayList<String>(food.FoodItems.split(","))
+        binding.priceMeal.text = "Rs $FoodPrice"
         hideProgressDialog()
         if(taskList.isNotEmpty()) {
             val itemAdapter = FoodItemAdapter(taskList)
@@ -94,17 +103,69 @@ class ConsumeMeal : BaseActivity(){
             binding.ConsumeBtn.visibility = View.VISIBLE
         }
         if (consumed==1) {
+            binding.ConsumeBtn.visibility = View.GONE
+            binding.detailConsume.text = binding.detailConsume.text.toString()+TimeCurrent().currentYYYYMMDD()
             binding.ResultLayout.visibility = View.VISIBLE
         }
-        if (consumed ==1 && reviewed == 0) {
+        if (consumed == 1 && reviewed == 0) {
             binding.ReviewLayout.visibility = View.VISIBLE
+        }
+        if (consumed == 1 && reviewed != 0) {
+            binding.ReviewLayout.visibility = View.GONE
         }
     }
 
+    private fun getChangesHistory(): HashMap<String, Any> {
+        val mapHash = HashMap<String, Any>()
 
-    override fun onDestroy() {
-        super.onDestroy()
+        when(MealType) {
+            Constants.BREAKFAST -> {
+                if (mPresentState.reviewedBREAKFAST != reviewed) {
+                    mapHash["reviewedBREAKFAST"] = reviewed
 
+                }
+                if (mPresentState.tookBREAKFAST != consumed) {
+                    mapHash["tookBREAKFAST"] = consumed
+                    mapHash[Constants.BREAKFAST] = FoodPrice
+                    mPresentState.tookBREAKFAST = consumed
+
+                }
+            }
+            Constants.LUNCH -> {
+                if (mPresentState.reviewedLUNCH != reviewed) {
+                    mapHash["reviewedLUNCH"] = reviewed
+                }
+                if (mPresentState.tookLUNCH != consumed) {
+                    mapHash["tookLUNCH"] = consumed
+                    mapHash[Constants.LUNCH] = FoodPrice
+                    mPresentState.tookLUNCH = consumed
+
+                }
+            }
+            Constants.SNACKS -> {
+                if (mPresentState.reviewedSNACKS!= reviewed) {
+                    mapHash["reviewedSNACKS"] = reviewed
+                }
+                if (mPresentState.tookSNACKS != consumed) {
+                    mapHash["tookSNACKS"] = consumed
+                    mapHash[Constants.SNACKS] = FoodPrice
+                    mPresentState.tookSNACKS = consumed
+                }
+            }
+            Constants.DINNER -> {
+                if (mPresentState.reviewedDINNER != reviewed) {
+                    mapHash["reviewedDINNER"] = reviewed
+
+                }
+                if (mPresentState.tookDINNER != consumed) {
+                    mapHash["tookDINNER"] = consumed
+                    mapHash[Constants.DINNER] = FoodPrice
+                    mPresentState.tookDINNER = consumed
+
+                }
+            }
+        }
+        return mapHash
     }
 
 //    Getting the current User Status
@@ -133,4 +194,17 @@ class ConsumeMeal : BaseActivity(){
         setupVisibility()
     }
 
+    fun profileUpdateSuccess() {
+        hideProgressDialog()
+        val historyHashMap = getChangesHistory()
+        if (historyHashMap.isNotEmpty())
+            FireStoreClass().updateHistory(this, historyHashMap)
+
+    }
+
+    fun getBalance(balance: Int) {
+        currentBalance = balance
+        val balanceChange = hashMapOf<String, Any>("balance" to currentBalance-FoodPrice)
+        FireStoreClass().updateUserProfileData(this, balanceChange)
+    }
 }

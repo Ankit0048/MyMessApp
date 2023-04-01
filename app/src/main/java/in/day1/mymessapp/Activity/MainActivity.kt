@@ -2,6 +2,7 @@ package `in`.day1.mymessapp.Activity
 
 import `in`.day1.mymessapp.Activity.Firebase.FireStoreClass
 import `in`.day1.mymessapp.Activity.Models.History
+import `in`.day1.mymessapp.Activity.Models.StarSystem
 import `in`.day1.mymessapp.Activity.Models.User
 import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
 import `in`.day1.mymessapp.Activity.Utils.Constants
@@ -47,12 +48,20 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 //        Firestore collection Creation for storage of History
         FireStoreClass().intiateHistoryToday(this@MainActivity, History())
+
+//        Firestore collection Setting the Star System
+        FireStoreClass().initateReview(this, StarSystem(), Constants.BREAKFAST+"REVIEW")
+        FireStoreClass().initateReview(this, StarSystem(), Constants.LUNCH+"REVIEW")
+        FireStoreClass().initateReview(this, StarSystem(), Constants.DINNER+"REVIEW")
+        FireStoreClass().initateReview(this, StarSystem(), Constants.SNACKS+"REVIEW")
+
 //        Attaching the on click listeners to the button
         binding.appBar.mainContentView.breakfastButton.setOnClickListener(this)
         binding.appBar.mainContentView.SnackButton.setOnClickListener(this)
         binding.appBar.mainContentView.LunchButton.setOnClickListener(this)
         binding.appBar.mainContentView.DinnerButton.setOnClickListener(this)
         binding.appBar.mainContentView.PaidButton.setOnClickListener(this)
+
 
     }
     private fun setUpActionBar() {

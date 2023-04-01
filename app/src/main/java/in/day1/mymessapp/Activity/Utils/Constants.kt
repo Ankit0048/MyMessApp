@@ -20,10 +20,15 @@ object Constants {
     const val HISTORY = "HISTORY"
 
     const val PASS_DAY = "WEEKDAY"
+
+    const val REVIEW = "REVIEW"
+
+
     val DAY = hashMapOf<Int, String>(1 to "SUNDAY", 2 to "MONDAY", 3 to "TUESDAY", 4 to "WEDNESDAY",
     5 to "THURSDAY", 6 to "FRIDAY", 7 to "SATURDAY")
 
     val validTiming = hashMapOf(BREAKFAST to arrayOf(7, 9), LUNCH to arrayOf(12, 13)
         , SNACKS to arrayOf(17, 18), DINNER to arrayOf(20, 21))
 
+    val starIndex = hashMapOf(1 to "one", 2 to "two", 3 to "three", 4 to "four", 5 to "five")
 }

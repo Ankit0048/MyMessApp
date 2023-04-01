@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_margin="10sp"
         android:layout_width="match_parent"
-        android:layout_height="70sp"
+        android:layout_height="wrap_content"
         android:foregroundGravity="center"
         android:background="@color/light_grey"
         app:cardCornerRadius="20sp">
@@ -26,6 +26,7 @@
             android:background="@drawable/food_icon"
             android:layout_width="60sp"
             android:layout_height="60sp"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="20sp"/>
 
         <TextView

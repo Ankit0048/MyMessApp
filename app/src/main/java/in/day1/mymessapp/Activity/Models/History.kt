@@ -13,10 +13,10 @@ data class History(
     val reviewedLUNCH: Int = 0,
     val reviewedSNACKS: Int= 0,
     val reviewedDINNER: Int = 0,
-    val tookBREAKFAST: Int = 0,
-    val tookLUNCH: Int = 0,
-    val tookDINNER: Int = 0,
-    val tookSNACKS: Int = 0
+    var tookBREAKFAST: Int = 0,
+    var tookLUNCH: Int = 0,
+    var tookDINNER: Int = 0,
+    var tookSNACKS: Int = 0
 ): Parcelable {
 
     constructor(parcel: Parcel) : this(
