@@ -4,11 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class History(
-    val BREAKFAST: Int = 0,
-    val LUNCH: Int = 0,
-    val SNACKS: Int = 0,
-    val DINNER: Int = 0,
-    val PAID: Int = 0,
+    val breakfast: Int = 0,
+    val lunch: Int = 0,
+    val snacks: Int = 0,
+    val dinner: Int = 0,
+    val paid: Int = 0,
     val reviewedBREAKFAST: Int = 0,
     val reviewedLUNCH: Int = 0,
     val reviewedSNACKS: Int= 0,
@@ -40,11 +40,11 @@ data class History(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(BREAKFAST)
-        parcel.writeInt(LUNCH)
-        parcel.writeInt(SNACKS)
-        parcel.writeInt(DINNER)
-        parcel.writeInt(PAID)
+        parcel.writeInt(breakfast)
+        parcel.writeInt(lunch)
+        parcel.writeInt(snacks)
+        parcel.writeInt(dinner)
+        parcel.writeInt(paid)
         parcel.writeInt(reviewedBREAKFAST)
         parcel.writeInt(reviewedDINNER)
         parcel.writeInt(reviewedLUNCH)

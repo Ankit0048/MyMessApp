@@ -7,6 +7,7 @@ import `in`.day1.mymessapp.Activity.Models.User
 import `in`.day1.mymessapp.Activity.TimeCurrent.TimeCurrent
 import `in`.day1.mymessapp.Activity.Utils.Constants
 import `in`.day1.mymessapp.R
+import `in`.day1.mymessapp.databinding.ActivityExpensesBinding
 import `in`.day1.mymessapp.databinding.ActivityMainBinding
 import android.app.Activity
 import android.content.Intent
@@ -121,6 +122,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             R.id.week_menu -> {
                 val intent = Intent(this, WeekMenuActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.history -> {
+                val intent = Intent(this, ExpensesActivity::class.java)
                 startActivity(intent)
             }
         }

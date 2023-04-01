@@ -17,6 +17,9 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class ConsumeMeal : BaseActivity(){
 
@@ -126,7 +129,7 @@ class ConsumeMeal : BaseActivity(){
                 }
                 if (mPresentState.tookBREAKFAST != consumed) {
                     mapHash["tookBREAKFAST"] = consumed
-                    mapHash[Constants.BREAKFAST] = FoodPrice
+                    mapHash[Constants.BREAKFAST.lowercase()] = FoodPrice
                     mPresentState.tookBREAKFAST = consumed
 
                 }
@@ -137,7 +140,7 @@ class ConsumeMeal : BaseActivity(){
                 }
                 if (mPresentState.tookLUNCH != consumed) {
                     mapHash["tookLUNCH"] = consumed
-                    mapHash[Constants.LUNCH] = FoodPrice
+                    mapHash[Constants.LUNCH.lowercase()] = FoodPrice
                     mPresentState.tookLUNCH = consumed
 
                 }
@@ -148,7 +151,7 @@ class ConsumeMeal : BaseActivity(){
                 }
                 if (mPresentState.tookSNACKS != consumed) {
                     mapHash["tookSNACKS"] = consumed
-                    mapHash[Constants.SNACKS] = FoodPrice
+                    mapHash[Constants.SNACKS.lowercase()] = FoodPrice
                     mPresentState.tookSNACKS = consumed
                 }
             }
@@ -159,7 +162,7 @@ class ConsumeMeal : BaseActivity(){
                 }
                 if (mPresentState.tookDINNER != consumed) {
                     mapHash["tookDINNER"] = consumed
-                    mapHash[Constants.DINNER] = FoodPrice
+                    mapHash[Constants.DINNER.lowercase()] = FoodPrice
                     mPresentState.tookDINNER = consumed
 
                 }

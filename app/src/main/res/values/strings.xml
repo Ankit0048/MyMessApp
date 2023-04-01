@@ -14,6 +14,6 @@
     <string name="mobile">Mobile</string>
     <string name="update">UPDATE</string>
     <string name="week_menu">Menu</string>
-    <string name="my_expenses">My Expenses</string>
+    <string name="my_expenses">Monthly Expenses</string>
     <string name="my_balance">Balance</string>
 </resources>

@@ -15,6 +15,11 @@ class TimeCurrent {
         return "${year}_${month}_${date}"
     }
 
+//    Data Format used to search in week
+    fun currentYYYYMM(): String {
+        return "${year}_${month}_"
+    }
+
 //    Get the current day of the week
     fun getDayOfWeek():Int {
         return day
