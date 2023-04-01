@@ -181,7 +181,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     startActivity(intent)
                 }
                 R.id.PaidButton -> {
-                    TODO()
+                    val intent = Intent(this, PaidAcitivity::class.java)
+                    startActivity(intent)
                 }
 
             }

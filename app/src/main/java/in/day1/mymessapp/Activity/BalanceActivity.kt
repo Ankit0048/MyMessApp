@@ -5,6 +5,7 @@ import `in`.day1.mymessapp.R
 import `in`.day1.mymessapp.databinding.ActivityBalanceBinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.widget.Toolbar
 
 class BalanceActivity : AppCompatActivity() {
@@ -15,6 +16,10 @@ class BalanceActivity : AppCompatActivity() {
 
         binding = ActivityBalanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         setUpActionBar()
         FireStoreClass().loginUser(this)

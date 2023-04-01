@@ -16,6 +16,7 @@ import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.awaitAll
 import java.util.Timer
 import kotlin.contracts.contract
+import kotlin.math.log
 
 class FireStoreClass {
     private var mFireStore = FirebaseFirestore.getInstance()
@@ -70,6 +71,10 @@ class FireStoreClass {
                     is BalanceActivity -> {
                         activity.getBalance(loggedUser!!.balance)
                     }
+                    is PaidAcitivity -> {
+                        activity.setBalance(loggedUser!!.balance)
+                    }
+
                 }
             }.addOnFailureListener { e ->
                 when (activity) {
@@ -101,6 +106,9 @@ class FireStoreClass {
                     }
                     is ConsumeMeal -> {
                         activity.profileUpdateSuccess()
+                    }
+                    is PaidAcitivity -> {
+                        val x = 99
                     }
                 }
 
@@ -183,6 +191,9 @@ class FireStoreClass {
                     is ConsumeMeal -> {
                         activity.currentStatus(data)
                     }
+                    is PaidAcitivity -> {
+                        activity.paidBalanceToday(data?.paid!!)
+                    }
                 }
             }.addOnFailureListener {
                 when (activity) {
@@ -202,6 +213,9 @@ class FireStoreClass {
                 when (activity) {
                     is ConsumeMeal -> {
                         activity.setupVisibility()
+                    }
+                    is PaidAcitivity -> {
+                        activity.setUpVisibilty()
                     }
                 }
             }
@@ -306,7 +320,7 @@ class FireStoreClass {
                 val History = document.toObject(History::class.java)
                 if (History != null) {
                     monthlist.add(Pair(History, tt + x.toString()))
-                    print("DATA FOUND *******************")
+
                 }
                 getThisMonthUserHistory(activity, monthlist, x - 1)
             }.addOnFailureListener {
