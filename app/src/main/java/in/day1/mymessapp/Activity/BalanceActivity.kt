@@ -30,7 +30,6 @@ class BalanceActivity : AppCompatActivity() {
 //            Drawer toggle
             onBackPressed()
         }
-
     }
 
     fun getBalance(balance: Int) {

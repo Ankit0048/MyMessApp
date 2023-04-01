@@ -119,6 +119,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 val intent = Intent(this, BalanceActivity::class.java)
                 startActivity(intent)
             }
+            R.id.week_menu -> {
+                val intent = Intent(this, WeekMenuActivity::class.java)
+                startActivity(intent)
+            }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true

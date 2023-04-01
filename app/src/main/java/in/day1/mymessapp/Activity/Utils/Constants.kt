@@ -1,6 +1,7 @@
 package `in`.day1.mymessapp.Activity.Utils
 
 object Constants {
+
     const val GOOGLE_SIGN_IN_REQUEST_CODE = 1000
     const val USERS = "USERS"
 
@@ -23,6 +24,8 @@ object Constants {
 
     const val REVIEW = "REVIEW"
 
+    val ORDERDAY = arrayOf("SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY",
+        "SATURDAY")
 
     val DAY = hashMapOf<Int, String>(1 to "SUNDAY", 2 to "MONDAY", 3 to "TUESDAY", 4 to "WEDNESDAY",
     5 to "THURSDAY", 6 to "FRIDAY", 7 to "SATURDAY")

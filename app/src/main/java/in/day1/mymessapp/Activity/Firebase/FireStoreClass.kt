@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import java.util.Timer
+import kotlin.contracts.contract
 
 class FireStoreClass {
     private var mFireStore = FirebaseFirestore.getInstance()
@@ -242,9 +243,9 @@ class FireStoreClass {
             .get().addOnSuccessListener {
                     document ->
 
-                var x = document.get("one")
+                var x = document.get(Constants.starIndex[rating]!!).toString().toInt() + 1
                 mFireStore.collection(mealType+Constants.REVIEW).document(tt)
-                    .update(Constants.starIndex[rating]!!, x.toString().toInt() +1
+                    .update(Constants.starIndex[rating]!!, x
                         ).addOnSuccessListener {
                             Log.i("Updated", "Count incremented for the Rating")
                     }
@@ -254,5 +255,47 @@ class FireStoreClass {
             }
         }
 
+// Function to get all the Data for the
+    fun setWeekMenu(activity: WeekMenuActivity) {
+        val weeklist = ArrayList<HashMap<String, String>>()
+        for (i in 0..6) {
+            weeklist.add(hashMapOf())
+            mFireStore.collection(Constants.ORDERDAY[i]).document(Constants.BREAKFAST)
+                .get().addOnSuccessListener {
+                    document ->
+                    var x = document.get("foodItems").toString()
+                    weeklist[i][Constants.BREAKFAST] = x
 
+                }
+            mFireStore.collection(Constants.ORDERDAY[i]).document(Constants.LUNCH)
+                .get().addOnSuccessListener {
+                        document ->
+                    var x = document.get("foodItems").toString()
+                    println("$i .... $x *****")
+                    weeklist[i][Constants.LUNCH] = x
+                    println("$i *****")
+                    mFireStore.collection(Constants.ORDERDAY[i]).document(Constants.DINNER)
+                        .get().addOnSuccessListener {
+                                document ->
+                            var x = document.get("foodItems").toString()
+
+                            weeklist[i][Constants.DINNER] = x
+                        }
+                    mFireStore.collection(Constants.ORDERDAY[i]).document(Constants.SNACKS)
+                        .get().addOnSuccessListener {
+                                document ->
+                            var x = document.get("foodItems").toString()
+
+                            weeklist[i][Constants.SNACKS] = x
+                            if (i == 6) {
+                                activity.setUpDataToRecylclerView(weeklist)
+                            }
+
+                        }
+                }
+        }
+
+
+
+    }
 }
