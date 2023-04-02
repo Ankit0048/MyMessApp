@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         WindowManager.LayoutParams.FLAG_FULLSCREEN,
         )
 
-        val typeface : Typeface = Typeface.createFromAsset(assets, "CARBON-DROID.ttf")
+        val typeface : Typeface = Typeface.createFromAsset(assets, "felix_titling.ttf")
         binding.tvAppName.typeface = typeface
 
         Timer().schedule(2000) {

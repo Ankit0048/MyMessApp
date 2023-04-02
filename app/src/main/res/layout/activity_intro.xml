@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:background="@color/dark1"
     android:padding="20dp"
     tools:context=".Activity.IntroActivity">
 
@@ -13,10 +14,10 @@
         android:layout_marginTop="@dimen/intro_title_margin_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
+        android:text="IIT BBS MESS"
         android:textSize="@dimen/intro_text_titlesize"
         android:textStyle="bold"
-        android:textColor="@color/dark1"
+        android:textColor="@color/dark4"
         android:typeface="sans"
         android:fontFamily="sans-serif-light"/>
 
@@ -24,13 +25,13 @@
         android:layout_width="@dimen/image_into_width"
         android:layout_height="@dimen/image_intro_height"
         android:layout_marginTop="@dimen/image_view_margin"
-        android:background="@drawable/mess_image"
+        android:src="@drawable/mymessdark"
         android:contentDescription="@string/intro_content_description" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/primary_text_color"
+        android:textColor="@color/dark4"
         android:text="@string/starting_string"
         android:layout_marginTop="@dimen/image_view_margin"
         android:textSize="@dimen/intro_text_start_size"
@@ -39,7 +40,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/secondary_text_color"
+        android:textColor="@color/dark4"
         android:text="@string/intro_info"
         android:gravity="center_horizontal"
         android:layout_marginTop="@dimen/image_view_margin"
@@ -53,7 +54,7 @@
         android:layout_margin="@dimen/image_view_margin"
         android:background="@drawable/shape_button_rounded"
         android:text="@string/admin_btn"
-        android:textColor="@color/white"
+        android:textColor="@color/dark1"
         android:textSize="@dimen/intro_text_info_size"
         android:textStyle="bold" />
 
