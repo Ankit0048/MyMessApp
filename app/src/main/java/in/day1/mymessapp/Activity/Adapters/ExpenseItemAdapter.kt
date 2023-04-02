@@ -34,11 +34,11 @@ class ExpenseItemAdapter(private val item: ArrayList<Pair<History, String>>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var x = item[position].first
-        holder.day.text = item[position].second
-        holder.breakfastCost.text = x.breakfast.toString()
-        holder.lunchCost.text = x.lunch.toString()
-        holder.snackCost.text = x.snacks.toString()
-        holder.dinnerCost.text = x.dinner.toString()
+        holder.day.text = "DATE - " + item[position].second
+        holder.breakfastCost.text ="RS "+ x.breakfast.toString()
+        holder.lunchCost.text ="RS " + x.lunch.toString()
+        holder.snackCost.text = "RS " + x.snacks.toString()
+        holder.dinnerCost.text ="RS " + x.dinner.toString()
         holder.paidCost.text = "PAID COST: Rs " + x.paid.toString()
         holder.totalCost.text = "TOTAL : Rs " + (x.breakfast + x.lunch + x.snacks + x.dinner +x.paid)
             .toString()
