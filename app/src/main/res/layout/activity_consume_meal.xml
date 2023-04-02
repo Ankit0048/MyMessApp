@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg3"
     tools:context=".Activity.ConsumeMeal">
 
-    <com.google.android.material.appbar.CollapsingToolbarLayout
+    <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar_consume_layout"
@@ -16,13 +17,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         >
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_consume_activity"
             android:layout_width="match_parent"
+            app:title="ITEM LIST"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/dark2"
+            android:background="@color/dark1"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,6 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20sp"
+        app:cardBackgroundColor="@color/dark3"
         android:layout_margin="10sp"
         app:cardCornerRadius="20sp">
         <androidx.recyclerview.widget.RecyclerView
@@ -70,6 +73,7 @@
             android:layout_height="400sp"
             android:layout_weight="0.8"
             android:layout_margin="10sp"
+            android:background="@color/dark3"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
             app:layout_constraintHorizontal_bias="0.842"
@@ -88,6 +92,7 @@
 
             android:background="@drawable/shape_button_rounded"
             android:text="Consume"
+            tools:visibility="visible"
             android:textColor="@color/white"
             android:textSize="@dimen/intro_text_info_size"
             android:textStyle="bold"
@@ -106,22 +111,18 @@
             android:layout_width="60dp"
             android:layout_height="45sp"
             android:visibility="visible"
-            android:background="@drawable/tick_image"/>
+            android:background="@drawable/tickimage_bg"/>
         <TextView
             android:id="@+id/detailConsume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
             android:text="CONSUMED"
-            android:textSize="30sp"
+            tools:visibility="visible"
+            android:textSize="25sp"
             />
     </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3sp"
-            android:layout_margin="5sp"
-            android:background="@color/primary_text_color"/>
 
         <LinearLayout
 
@@ -129,6 +130,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/ReviewLayout"
             android:visibility="gone"
+            android:layout_marginTop="10sp"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
             >

@@ -38,6 +38,6 @@ class BalanceActivity : AppCompatActivity() {
     }
 
     fun getBalance(balance: Int) {
-        binding.balanceText.text = balance.toString()
+        binding.balanceText.text = "Rs " + balance.toString()
     }
 }

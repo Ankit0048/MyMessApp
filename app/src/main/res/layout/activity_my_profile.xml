@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark3"
     tools:context=".Activity.MyProfileActivity"
     android:orientation="vertical"
     >
@@ -24,7 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#CAC9C9"
+        android:background="@color/dark3"
         >
 
         <androidx.cardview.widget.CardView
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/my_profile_screen_content_marginStartEnd"
             android:layout_marginEnd="@dimen/my_profile_screen_content_marginStartEnd"
+            app:cardBackgroundColor="@color/dark1"
             android:layout_marginTop="@dimen/my_profile_screen_content_marginTopBottom"
             android:layout_marginBottom="@dimen/my_profile_screen_content_marginTopBottom"
             android:elevation="@dimen/cardview_default_elevation"
@@ -62,8 +64,10 @@
                     android:layout_marginTop="@dimen/cardview_padding_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:hintTextColor="@color/dark4"
                     android:layout_marginStart="@dimen/edittext_layout_margin"
                     android:layout_marginEnd="@dimen/edittext_layout_margin"
+                    android:textColorHint="@color/dark4"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/dark2">
 
@@ -71,8 +75,9 @@
                         android:id="@+id/profile_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/secondary_text_color"
+                        android:textColorHint="@color/dark4"
                         android:hint="@string/hint_name_edittext"
+                        android:textColor="@color/dark4"
                         android:focusableInTouchMode="false"
                         android:textSize="@dimen/input_edit_size_signup"
                         android:inputType="text"
@@ -86,7 +91,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/edittext_layout_margin"
                     android:layout_marginEnd="@dimen/edittext_layout_margin"
-                    android:textColorHint="@color/secondary_text_color"
+                    android:textColorHint="@color/dark4"
+                    app:hintTextColor="@color/dark4"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/dark2">
 
@@ -96,6 +102,7 @@
                         android:layout_height="wrap_content"
                         android:textColorHint="@color/secondary_text_color"
                         android:hint="@string/signup_hint_email"
+                        android:textColor="@color/dark4"
                         android:textSize="@dimen/input_edit_size_signup"
                         android:inputType="text"
                         android:focusableInTouchMode="false"

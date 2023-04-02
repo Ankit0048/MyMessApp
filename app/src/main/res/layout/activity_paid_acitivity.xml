@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg2"
     tools:context=".Activity.PaidAcitivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -18,11 +19,10 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_payment_Activity"
-
         app:titleMarginStart="80sp"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/dark2"
+        android:background="@color/dark3"
         app:popupTheme="@style/AppTheme.PopupOverlay"/>
 </com.google.android.material.appbar.AppBarLayout>
 
@@ -33,7 +33,7 @@ app:layout_constraintTop_toBottomOf="@id/toolbar_payment_layout"
 app:layout_constraintBottom_toBottomOf="parent"
 app:layout_constraintEnd_toEndOf="parent"
 app:layout_constraintStart_toStartOf="parent"
-app:cardBackgroundColor="@color/primary_text_color"
+app:cardBackgroundColor="@color/dark4"
 android:layout_marginBottom="100sp"
 app:cardCornerRadius="30sp">
 
@@ -42,6 +42,7 @@ app:cardCornerRadius="30sp">
     android:layout_height="match_parent"
     android:orientation="vertical">
     <ImageView
+        android:src="@drawable/payment_bga"
         android:id="@+id/paymentImage"
         android:layout_marginTop="20sp"
         android:layout_gravity="center_horizontal"

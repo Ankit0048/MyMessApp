@@ -75,12 +75,12 @@ class PaidAcitivity : BaseActivity() {
         binding.payableText.text = "PAID"
         binding.paymentText.visibility = View.INVISIBLE
         binding.paymentButton.text = "REFRESH"
-        binding.paymentImage.setImageResource(R.drawable.tick_image)
+        binding.paymentImage.setImageResource(R.drawable.tickimage_bg)
 
     }
 
     private fun refreshed() {
-        binding.paymentImage.setImageResource(R.drawable.ic_balance)
+        binding.paymentImage.setImageResource(R.drawable.payment_bga)
         binding.payableText.text = "PAYABLE AMOUNT"
         binding.paymentText.visibility = View.VISIBLE
         binding.paymentButton.text = "PAY"

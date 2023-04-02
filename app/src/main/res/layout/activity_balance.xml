@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark3"
     tools:context=".Activity.BalanceActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -33,7 +34,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:cardBackgroundColor="@color/primary_text_color"
+        app:cardBackgroundColor="@color/dark4"
         android:layout_marginBottom="80sp"
         app:cardCornerRadius="30sp">
         <LinearLayout
@@ -41,6 +42,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <ImageView
+                android:src="@drawable/ic_baseline_account_balance_24"
                 android:layout_marginTop="20sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="200sp"

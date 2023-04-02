@@ -40,11 +40,9 @@ class ConsumeMeal : BaseActivity(){
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-        setUpActionBar()
-
         MealType = intent.getStringExtra(Constants.PASS_DAY).toString()
         showProgressDialog("Loading Items ")
-
+        setUpActionBar()
 //        Using Firestore to get the data
         FireStoreClass().getFoodItems(this, MealType)
         FireStoreClass().getStatusToday(this)
@@ -71,7 +69,7 @@ class ConsumeMeal : BaseActivity(){
 
     private fun setUpActionBar() {
         val toolbar : Toolbar = binding.toolbarConsumeActivity
-        toolbar.title = "Item List"
+        toolbar.setTitle(MealType)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_new_24)
         setSupportActionBar(toolbar)
 

@@ -12,7 +12,7 @@ class FoodItemAdapter (private val items: ArrayList<String>)
         class ViewHolder(binding: ItemRowBinding):RecyclerView.ViewHolder(binding.root) {
             val foodItemText = binding.mealItemText
             val imageItem = binding.mealItemImage
-            val llItem = binding.mealItemLL
+            val llItem = binding.carditem
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,10 +25,10 @@ class FoodItemAdapter (private val items: ArrayList<String>)
         holder.foodItemText.text = items[position]
 
         if(position %2 == 0) {
-            holder.llItem.setBackgroundColor(Color.parseColor("#C1C1C1"))
+            holder.llItem.setCardBackgroundColor(Color.parseColor("#C1C1C1"))
         }
         else {
-            holder.llItem.setBackgroundColor(Color.parseColor("#EBEBEB"))
+            holder.llItem.setCardBackgroundColor(Color.parseColor("#EBEBEB"))
         }
     }
 
