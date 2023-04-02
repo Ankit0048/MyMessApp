@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="bottom"
-    android:background="@drawable/nav_header_main_background"
+    android:background="@color/dark1"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -32,7 +32,8 @@
         android:layout_marginEnd="@dimen/nav_content_margin_start"
         android:layout_marginTop="@dimen/nav_content_margin_top"
         android:layout_marginBottom="@dimen/nav_content_margin_bottom"
-        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textColor="@color/dark4"
         android:textSize="@dimen/signup_toolbar_text_size"
         tools:text ="Username"
         />

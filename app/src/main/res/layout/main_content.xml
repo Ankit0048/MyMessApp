@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:padding="10sp"
+    android:background="@drawable/bg1"
     android:layout_marginTop="?attr/actionBarSize"
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity">
@@ -26,6 +27,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="30sp"
+        app:cardBackgroundColor="@color/dark3"
         app:layout_constraintBottom_toTopOf="@id/card_Lunch"
         app:layout_constraintEnd_toStartOf="@id/card_Snacks"
         android:layout_marginEnd="10sp"
@@ -33,7 +35,9 @@
 
         <ImageButton
             android:id="@+id/breakfastButton"
-
+            android:scaleType="fitXY"
+            android:background="@color/dark3"
+            android:src="@drawable/breakfasticon_abg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </androidx.cardview.widget.CardView>
@@ -42,7 +46,7 @@
         android:layout_width="180sp"
         android:layout_height="180sp"
         app:cardCornerRadius="30sp"
-
+        app:cardBackgroundColor="@color/dark3"
         android:id="@+id/card_Snacks"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +56,9 @@
 
         <ImageButton
             android:id="@+id/SnackButton"
-
+            android:scaleType="fitXY"
+            android:background="@color/dark3"
+            android:src="@drawable/snacks_a"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </androidx.cardview.widget.CardView>
@@ -67,11 +73,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/card_Dinner"
         app:layout_constraintStart_toStartOf="parent"
+        app:cardBackgroundColor="@color/dark2"
         >
 
         <ImageButton
+            android:src="@drawable/lunch_bg"
+            android:scaleType="centerCrop"
             android:id="@+id/LunchButton"
-
+            android:background="@color/dark2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </androidx.cardview.widget.CardView>
@@ -83,15 +92,17 @@
         android:id="@+id/card_Dinner"
         android:layout_marginTop="10sp"
         app:layout_constraintBottom_toTopOf="@id/card_Paid"
-
+        app:cardBackgroundColor="@color/dark2"
         app:layout_constraintTop_toBottomOf="@id/card_Lunch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         >
 
         <ImageButton
+            android:src="@drawable/dinner_abh"
+            android:scaleType="fitXY"
             android:id="@+id/DinnerButton"
-
+            android:background="@color/dark2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </androidx.cardview.widget.CardView>
@@ -100,6 +111,7 @@
         android:layout_width="300sp"
         android:layout_height="80sp"
         app:cardCornerRadius="40sp"
+        app:cardBackgroundColor="@color/dark1"
         android:id="@+id/card_Paid"
         android:layout_marginTop="20sp"
         app:layout_constraintTop_toBottomOf="@id/card_Dinner"
@@ -110,8 +122,11 @@
         >
 
         <ImageButton
+            android:outlineSpotShadowColor="@color/dark4"
+            android:src="@drawable/paid_bgab"
             android:id="@+id/PaidButton"
-
+            android:scaleType="centerInside"
+            android:background="@color/dark1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </androidx.cardview.widget.CardView>
