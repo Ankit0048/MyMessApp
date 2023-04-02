@@ -8,6 +8,7 @@ access and manage user account balance and meal consumption and much more
 ** REQUIREMENTS **
 Internet connection is a must for the working of the app functionality
 MinSDK 22 android for android that is Android 5
+Currently it is set as to use the app must use iitbbs account else we can't login
 
 
 
