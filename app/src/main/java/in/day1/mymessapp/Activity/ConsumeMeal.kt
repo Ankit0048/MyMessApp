@@ -83,7 +83,7 @@ class ConsumeMeal : BaseActivity(){
                                          ) {
         FoodPrice = food.price
         val taskList = ArrayList<String>(food.FoodItems.split(","))
-        binding.priceMeal.text = "Rs $FoodPrice"
+        binding.priceMeal.text = "$MealType PRICE Rs- $FoodPrice"
         hideProgressDialog()
         if(taskList.isNotEmpty()) {
             val itemAdapter = FoodItemAdapter(taskList)
